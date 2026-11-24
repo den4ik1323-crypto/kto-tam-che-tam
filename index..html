@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Кто кого могает</title>
+<link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4efe2;--card:#fffdf6;--ink:#1a1a1a;--mute:#6b6658;--acc:#e63a1e;--acc2:#ffcf24;--line:#1a1a1a;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15130f;--card:#201d17;--ink:#f4efe2;--mute:#a59f8c;--line:#f4efe2}}
+:root[data-theme="dark"]{--bg:#15130f;--card:#201d17;--ink:#f4efe2;--mute:#a59f8c;--line:#f4efe2}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;min-height:100vh}
+.wrap{max-width:760px;margin:0 auto;padding:16px}
+h1,h2,.rus{font-family:"Russo One",Impact,sans-serif;font-weight:400;letter-spacing:.01em}
+header{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:14px}
+.logo{font-size:22px;color:var(--acc)}
+nav{display:flex;gap:6px}
+nav button,.btn{font:600 15px Inter,sans-serif;border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:9px 14px;cursor:pointer}
+nav button.on{background:var(--ink);color:var(--bg)}
+.btn.main{background:var(--acc);color:#fff;border-color:var(--line);box-shadow:3px 3px 0 var(--line);font-size:18px;padding:14px 22px}
+.btn.main:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--line)}
+.hero{text-align:center;padding:28px 8px}
+.hero h1{font-size:clamp(34px,10vw,60px);margin:0 0 10px;line-height:1.05}
+.hero p{color:var(--mute);margin:0 0 22px;line-height:1.5}
+.bar{height:8px;border:2px solid var(--line);border-radius:6px;background:var(--card);overflow:hidden;margin:6px 0 4px}
+.bar i{display:block;height:100%;background:var(--acc2);width:0;transition:width .25s}
+.meta{display:flex;justify-content:space-between;color:var(--mute);font-size:13px;font-weight:600}
+.arena{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px;position:relative}
+.fighter{border:3px solid var(--line);background:var(--card);border-radius:16px;padding:18px 10px;text-align:center;cursor:pointer;min-height:230px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:10px;font:inherit;color:inherit;box-shadow:5px 5px 0 var(--line);transition:transform .08s}
+.fighter:active{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--line)}
+.ava{width:84px;height:84px;border-radius:50%;display:grid;place-items:center;font-family:"Russo One",sans-serif;font-size:34px;color:#fff;border:3px solid var(--line)}
+.fighter b{font-size:18px;line-height:1.15}
+.tag{font-size:12px;color:var(--mute);font-weight:600}
+.vs{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:var(--acc2);color:#1a1a1a;border:3px solid var(--line);border-radius:50%;width:46px;height:46px;display:grid;place-items:center;font-family:"Russo One",sans-serif;pointer-events:none}
+.q{text-align:center;margin:16px 0 0;font-weight:800}
+.champ{background:var(--acc);color:#fff;border:3px solid var(--line);border-radius:18px;padding:26px 14px;text-align:center;box-shadow:6px 6px 0 var(--line);margin:8px 0 18px}
+.champ small{display:block;opacity:.85;font-weight:600;margin-bottom:8px}
+.champ h2{font-size:clamp(28px,9vw,48px);margin:0;line-height:1.1}
+.panel{background:var(--card);border:2px solid var(--line);border-radius:14px;padding:14px;margin-bottom:14px}
+.panel h3{margin:0 0 10px;font-size:17px}
+.save{display:flex;gap:8px;flex-wrap:wrap}
+.save input{flex:1;min-width:150px;font:16px Inter,sans-serif;padding:10px 12px;border:2px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink)}
+ol.rank{list-style:none;margin:0;padding:0}
+ol.rank li{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px dashed var(--mute)}
+ol.rank li:first-child{border-top:0}
+.n{width:30px;text-align:center;font-family:"Russo One",sans-serif;color:var(--mute)}
+li.top .n{color:var(--acc)}
+.mini{width:30px;height:30px;font-size:16px;border-width:2px}
+.mini.ava{width:30px;height:30px}
+.row{display:flex;align-items:center;gap:10px;padding:7px 0}
+.row .nm{flex:0 0 40%;font-weight:600;font-size:14px}
+.row .tr{flex:1;height:14px;background:var(--bg);border:2px solid var(--line);border-radius:7px;overflow:hidden}
+.row .tr i{display:block;height:100%;background:var(--acc)}
+.row .ct{width:24px;text-align:right;font-weight:800}
+.note{color:var(--mute);font-size:13px;line-height:1.4}
+.hide{display:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="logo rus">Кто кого могает</div>
+  <nav><button id="tPlay" class="on">Турнир</button><button id="tTable">Победители</button><button id="tPhoto" class="hide">Фото</button></nav>
+</header>
+<main id="app"></main>
+</div>
+
+<script>
+const U={sop:["Клан Сопрано","#7a1f1f"],st:["Очень странные дела","#b3122b"],av:["Мстители","#1d4fa3"],pir:["Пираты Карибского моря","#0f6b6b"],dc:["Вселенная DC","#22308f"],hp:["Гарри Поттер","#7b4a12"],tb:["Три богатыря","#8a5a00"],oth:["Другие вселенные","#4b3a8a"]};
+const C=[
+["Тони Сопрано","sop"],["Кристофер Молтисанти","sop"],["Сильвио Данте","sop"],
+["Одиннадцать","st"],["Джим Хоппер","st"],["Стив Харрингтон","st"],["Векна","st"],
+["Железный человек","av"],["Тор","av"],["Капитан Америка","av"],["Халк","av"],
+["Джек Воробей","pir"],["Дэйви Джонс","pir"],["Гектор Барбосса","pir"],
+["Бэтмен","dc"],["Супермен","dc"],["Чудо-женщина","dc"],["Джокер","dc"],
+["Гарри Поттер","hp"],["Гермиона Грейнджер","hp"],["Дамблдор","hp"],["Волан-де-Морт","hp"],
+["Илья Муромец","tb"],["Добрыня Никитич","tb"],["Алёша Попович","tb"],
+["Кармела Сопрано","sop"],["Полли Галтьери","sop"],["Доктор Мелфи","sop"],
+["Майк Уиллер","st"],["Макс Мэйфилд","st"],["Дастин","st"],
+["Чёрная вдова","av"],["Соколиный глаз","av"],["Танос","av"],
+["Уилл Тернер","pir"],["Элизабет Суонн","pir"],
+["Флэш","dc"],["Аквамен","dc"],["Харли Квинн","dc"],
+["Рон Уизли","hp"],["Северус Снегг","hp"],["Хагрид","hp"],
+["Конь Юлий","tb"],["Князь Киевский","tb"],
+["Дарт Вейдер","oth","Звёздные войны"],["Йода","oth","Звёздные войны"],["Гэндальф","oth","Властелин колец"],["Джон Уик","oth","Джон Уик"],["Геральт из Ривии","oth","Ведьмак"],["Шрек","oth","Шрек"],["Наруто Узумаки","oth","Наруто"],["Гоку","oth","Драгонболл"],["Терминатор","oth","Терминатор"],["Нео","oth","Матрица"],["Шерлок Холмс","oth","Шерлок Холмс"],["Человек-паук","oth","Marvel"],["Джеймс Бонд","oth","Агент 007"],["Рэмбо","oth","Рэмбо"],["Гомер Симпсон","oth","Симпсоны"],["Эрик Картман","oth","Южный парк"],["Рик Санчез","oth","Рик и Морти"],["Шелдон Купер","oth","Теория большого взрыва"],["Уолтер Уайт","oth","Во все тяжкие"],["Томас Шелби","oth","Острые козырьки"]
+].map(([n,u,t])=>({n,u,t}));
+let P={};const E={"Тони Сопрано":"🕴️","Кристофер Молтисанти":"🔫","Сильвио Данте":"🧥","Кармела Сопрано":"💍","Полли Галтьери":"🦜","Доктор Мелфи":"🛋️","Одиннадцать":"🩸","Джим Хоппер":"🚔","Стив Харрингтон":"💇","Векна":"👁️","Майк Уиллер":"🎲","Макс Мэйфилд":"🛹","Дастин":"🧢","Железный человек":"🤖","Тор":"⚡","Капитан Америка":"🛡️","Халк":"💚","Чёрная вдова":"🕷️","Соколиный глаз":"🏹","Танос":"🧤","Джек Воробей":"🏴‍☠️","Дэйви Джонс":"🐙","Гектор Барбосса":"🍎","Уилл Тернер":"⚔️","Элизабет Суонн":"👑","Бэтмен":"🦇","Супермен":"🦸","Чудо-женщина":"⭐","Джокер":"🃏","Флэш":"🏃","Аквамен":"🔱","Харли Квинн":"🔨","Гарри Поттер":"🪄","Гермиона Грейнджер":"📚","Дамблдор":"🧙","Волан-де-Морт":"🐍","Рон Уизли":"♟️","Северус Снегг":"🧪","Хагрид":"🐉","Илья Муромец":"🪓","Добрыня Никитич":"🗡️","Алёша Попович":"🎺","Конь Юлий":"🐴","Князь Киевский":"🏰","Дарт Вейдер":"🌑","Йода":"🟢","Гэндальф":"🔥","Джон Уик":"🐶","Геральт из Ривии":"🐺","Шрек":"👹","Наруто Узумаки":"🍥","Гоку":"🥋","Терминатор":"🦾","Нео":"🕶️","Шерлок Холмс":"🔍","Человек-паук":"🕸️","Джеймс Бонд":"🍸","Рэмбо":"🔪","Гомер Симпсон":"🍩","Эрик Картман":"🍔","Рик Санчез":"🛸","Шелдон Купер":"🚂","Уолтер Уайт":"🧫","Томас Шелби":"🥃"};
+const tagOf=c=>c.t||U[c.u][0];
+const BYNAME=Object.fromEntries(C.map(c=>[c.n,c]));
+const esc=s=>String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+const ava=(c,cls="")=>P[c.n]?`<div class="ava ${cls}" style="background:url(${P[c.n]}) center/cover"></div>`:`<div class="ava ${cls}" style="background:${U[c.u][1]}">${E[c.n]||esc(c.n[0])}</div>`;
+const roundName=n=>n==2?"Финал":n==4?"Полуфинал":n==8?"Четвертьфинал":"1/"+(n/2)+" финала";
+const $=id=>document.getElementById(id), app=$("app");
+
+let S={mode:"play",stage:"start",pool:[],next:[],out:[],i:0,total:0,done:0,saved:false};
+let winners=[],dbWinners=null,dbNote="";
+
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a}
+function start(){S={...S,stage:"play",pool:shuffle(C),next:[],out:[],i:0,total:C.length-1,done:0,saved:false};render()}
+function pick(w){
+  const a=S.pool[S.i],b=S.pool[S.i+1],win=w==0?a:b,lose=w==0?b:a;
+  S.next.push(win);S.out.push(lose);S.done++;S.i+=2;
+  if(S.i>=S.pool.length){
+    if(S.next.length==1){S.stage="result";S.champ=S.next[0];S.ranking=[S.champ,...S.out.slice().reverse()]}
+    else{S.pool=S.next;S.next=[];S.i=0}
+  }
+  render();
+}
+function renderPlay(){
+  if(S.stage=="start"){
+    app.innerHTML=`<section class="hero"><h1>Кто кого<br>могает?</h1><p>64 героя из сериалов, фильмов и мультфильмов.<br>В каждой паре выбери, кто кого могнёт — в конце получишь рейтинг и чемпиона.</p><button class="btn main" id="go">Начать турнир</button></section>`;
+    $("go").onclick=start;return}
+  if(S.stage=="play"){
+    const a=S.pool[S.i],b=S.pool[S.i+1];
+    app.innerHTML=`<div class="meta"><span>${roundName(S.pool.length)}</span><span>Бой ${S.done+1} из ${S.total}</span></div>
+    <div class="bar"><i style="width:${S.done/S.total*100}%"></i></div>
+    <div class="arena">${[a,b].map((c,k)=>`<button class="fighter" data-k="${k}">${ava(c)}<b>${esc(c.n)}</b><span class="tag">${esc(tagOf(c))}</span></button>`).join("")}<div class="vs">VS</div></div>
+    <p class="q">Кто кого могнёт?</p>`;
+    app.querySelectorAll(".fighter").forEach(b=>b.onclick=()=>pick(+b.dataset.k));return}
+  const r=S.ranking;
+  app.innerHTML=`<div class="champ"><small>Главный итог</small><h2>${esc(S.champ.n)} могнул</h2></div>
+  <div class="panel"><h3>Записать в таблицу победителей</h3>
+    <div class="save"><input id="nick" maxlength="24" placeholder="Твоё имя (необязательно)"><button class="btn" id="sv">Записать</button></div>
+    <p class="note" id="svn"></p></div>
+  <div class="panel"><h3>Твой рейтинг</h3><ol class="rank">${r.map((c,i)=>`<li class="${i<3?"top":""}"><span class="n">${i+1}</span>${ava(c,"mini")}<span><b style="font-size:15px">${esc(c.n)}</b><br><span class="tag">${esc(tagOf(c))}</span></span></li>`).join("")}</ol></div>
+  <button class="btn main" id="again">Пройти ещё раз</button>`;
+  $("again").onclick=start;
+  $("sv").onclick=save;
+  if(S.saved){$("sv").disabled=true;$("svn").textContent="Записано ✔"}
+}
+async function save(){
+  if(S.saved)return;
+  const rec={champ:S.champ.n,second:S.ranking[1].n,name:($("nick").value.trim()||"Аноним").slice(0,24),t:Date.now()};
+  $("sv").disabled=true;
+  try{
+    if(dbWinners){await dbWinners.add(rec)}
+    else{const l=JSON.parse(localStorage.getItem("kkm")||"[]");l.unshift(rec);localStorage.setItem("kkm",JSON.stringify(l.slice(0,200)));winners=l}
+    S.saved=true;$("svn").textContent="Записано ✔ Смотри вкладку «Победители»."
+  }catch(e){$("sv").disabled=false;$("svn").textContent="Не получилось записать, попробуй ещё раз."}
+}
+function renderTable(){
+  const cnt={};winners.forEach(w=>cnt[w.champ]=(cnt[w.champ]||0)+1);
+  const top=Object.entries(cnt).sort((a,b)=>b[1]-a[1]).slice(0,12),max=top.length?top[0][1]:1;
+  app.innerHTML=`<div class="panel"><h3>Кто чаще всего могнул</h3>
+  ${top.length?top.map(([n,c])=>`<div class="row"><span class="nm">${esc(n)}</span><span class="tr"><i style="width:${c/max*100}%"></i></span><span class="ct">${c}</span></div>`).join(""):`<p class="note">Пока никто не прошёл турнир. Будь первым!</p>`}</div>
+  <div class="panel"><h3>Последние участники (${winners.length})</h3>
+  ${winners.slice(0,50).map(w=>`<div class="row"><span class="nm">${esc(w.name)}</span><span style="flex:1;font-size:14px"><b>${esc(w.champ)}</b> могнул</span></div>`).join("")||`<p class="note">Пусто.</p>`}
+  <p class="note">${esc(dbNote)}</p></div>`;
+}
+let assetsApi=null;
+function renderPhotos(){
+  app.innerHTML=`<div class="panel"><h3>Фото героев</h3><p class="note">Загрузи картинку каждому герою (только ты как владелец страницы). Фото сразу увидят все участники.</p>${C.map((c,i)=>`<div class="row">${ava(c,"mini")}<span class="nm" style="flex:1">${esc(c.n)}</span><input type="file" accept="image/*" data-i="${i}" style="max-width:140px;font-size:12px"></div>`).join("")}<p class="note" id="phn"></p></div>`;
+  app.querySelectorAll("input[type=file]").forEach(inp=>inp.onchange=async()=>{
+    const f=inp.files[0];if(!f)return;const c=C[+inp.dataset.i];$("phn").textContent="Загружаю: "+c.n+"…";
+    try{const r=await assetsApi.upload(f);await window.__db.collection("photos").doc("c"+inp.dataset.i).set({name:c.n,url:r.url});P[c.n]=r.url;$("phn").textContent="Готово: "+c.n+" ✔";}
+    catch(e){$("phn").textContent="Не получилось загрузить (файл до 20 МБ)."}
+  });
+}
+function render(){S.mode=="play"?renderPlay():S.mode=="table"?renderTable():renderPhotos();window.scrollTo(0,0)}
+function setMode(m){S.mode=m;$("tPlay").className=m=="play"?"on":"";$("tTable").className=m=="table"?"on":"";$("tPhoto").className=(m=="photo"?"on":"")+(assetsApi?"":" hide");render()}
+$("tPlay").onclick=()=>setMode("play");$("tTable").onclick=()=>setMode("table");$("tPhoto").onclick=()=>setMode("photo");
+
+function localLoad(){try{winners=JSON.parse(localStorage.getItem("kkm")||"[]")}catch(e){winners=[]}}
+async function initDb(){
+  localLoad();dbNote="Таблица хранится только на этом устройстве.";
+  try{
+    const db=await claude.use("db");if(!db)return;
+    window.__db=db;
+    try{assetsApi=await claude.use("assets");if(assetsApi)$("tPhoto").className=""}catch(e){}
+    db.collection("photos").onSnapshot(snap=>{const m={};(snap.docs||[]).forEach(d=>{const x=d.data();if(x&&x.name&&typeof x.url=="string"&&x.url.startsWith("/_blob/"))m[x.name]=x.url});P=m;if(S.mode=="play"&&S.stage=="start"||S.mode=="table")render()},()=>{});
+    dbWinners=db.collection("winners");dbNote="Общая таблица: её видят все, кто открыл эту страницу.";
+    dbWinners.orderBy("t","desc").limit(300).onSnapshot(snap=>{
+      const out=[];(snap.docs||[]).forEach(d=>out.push(d.data()));winners=out;
+      if(S.mode=="table")renderTable();
+    },()=>{dbWinners=null;localLoad();dbNote="Общая таблица недоступна, показываю локальную."});
+  }catch(e){dbWinners=null}
+}
+render();initDb();
+</script>
+</body>
+</html>
